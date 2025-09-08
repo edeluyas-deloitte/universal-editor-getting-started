@@ -1,6 +1,5 @@
 export default function decorate(block) {
   const bgColorClass = [...block.classList].find((cls) => cls.startsWith('bg-'));
-  console.log('bgColorClass', bgColorClass);
 
   if (bgColorClass) {
     const colorName = bgColorClass.split('-')[1];
