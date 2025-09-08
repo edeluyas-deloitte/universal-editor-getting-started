@@ -251,6 +251,14 @@
           {
             "name": "Blue",
             "value": "bg-blue"
+          },
+          {
+            "name": "Yellow",
+            "value": "bg-yellow"
+          },
+          {
+            "name": "Light Gray",
+            "value": "bg-lightgray"
           }
         ]
       }
