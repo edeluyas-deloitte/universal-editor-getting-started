@@ -263,5 +263,32 @@
         ]
       }
     ]
+  },
+  {
+    "id": "products",
+    "fields": [
+      {
+        "component": "aem-content-fragment",
+        "name": "picker",
+        "label": "AEM Content Fragment Picker",
+        "valueType": "string",
+        "variationName": "contentFragmentVariation",
+        "validation": {
+          "rootPath": "/content/dam/ez-eds-getting-started-assests"
+        }
+      },
+      {
+        "component": "reference",
+        "label": "Reference",
+        "name": "reference",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Button Text",
+        "valueType": "string"
+      }
+    ]
   }
 ]

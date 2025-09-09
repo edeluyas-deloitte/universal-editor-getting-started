@@ -36,17 +36,25 @@
       "id": "product",
       "fields": [
         {
-          "component": "reference",
+          "component": "aem-content-fragment",
+          "name": "picker",
+          "label": "AEM Content Fragment Picker",
           "valueType": "string",
-          "name": "image",
-          "label": "Image",
-          "multi": false
+          "variationName": "contentFragmentVariation",
+          "validation": {
+            "rootPath": "/content/dam/ez-eds-getting-started-assests"
+          }
         },
         {
-          "component": "richtext",
+          "component": "reference",
+          "label": "Reference",
+          "name": "reference",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
           "name": "text",
-          "value": "",
-          "label": "Text",
+          "label": "Button Text",
           "valueType": "string"
         }
       ]
