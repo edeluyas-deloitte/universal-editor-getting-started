@@ -265,7 +265,7 @@
     ]
   },
   {
-    "id": "products",
+    "id": "product",
     "fields": [
       {
         "component": "aem-content-fragment",

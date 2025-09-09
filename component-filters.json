@@ -17,7 +17,7 @@
       "columns",
       "fragment",
       "quote",
-      "products"
+      "product"
     ]
   },
   {
@@ -38,7 +38,8 @@
       "text",
       "image",
       "button",
-      "title"
+      "title",
+      "product"
     ]
   }
 ]
