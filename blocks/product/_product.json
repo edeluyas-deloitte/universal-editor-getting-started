@@ -33,7 +33,7 @@
         {
           "component": "reference",
           "label": "Reference",
-          "name": "reference",
+          "name": "Image",
           "valueType": "string"
         },
         {
