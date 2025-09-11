@@ -18,6 +18,18 @@
         {
           "component": "text",
           "valueType": "string",
+          "name": "authorurl",
+          "label": "Author Url"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "publishurl",
+          "label": "Publish Url"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
           "name": "keywords",
           "multi": true,
           "label": "Keywords"
