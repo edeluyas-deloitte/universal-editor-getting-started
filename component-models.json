@@ -290,12 +290,6 @@
         }
       },
       {
-        "component": "reference",
-        "label": "Reference",
-        "name": "reference",
-        "valueType": "string"
-      },
-      {
         "component": "text",
         "name": "text",
         "label": "Button Text",

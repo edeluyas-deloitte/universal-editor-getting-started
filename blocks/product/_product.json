@@ -31,12 +31,6 @@
           }
         },
         {
-          "component": "reference",
-          "label": "Reference",
-          "name": "Image",
-          "valueType": "string"
-        },
-        {
           "component": "text",
           "name": "text",
           "label": "Button Text",
