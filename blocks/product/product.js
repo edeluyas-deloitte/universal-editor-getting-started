@@ -1,5 +1,5 @@
 export default async function decorate(block) {
-  console.block(block);
+  console.log(block);
   const url = 'https://author-p9606-e71941.adobeaemcloud.com/graphql/execute.json/ez-eds/get-credit-card-products';
 
   const cfRequest = await fetch(url)
