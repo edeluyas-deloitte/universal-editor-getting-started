@@ -37,14 +37,10 @@
           "valueType": "string"
         },
         {
-          "component": "aem-content",
-          "name": "reference",
-          "value": "",
+          "component": "reference",
           "label": "Button Url",
-          "valueType": "string",
-          "validation": {
-            "rootPath": "/content/sites"
-          }
+          "name": "reference",
+          "valueType": "string"
         }
       ]
     }
