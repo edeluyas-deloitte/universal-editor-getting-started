@@ -302,7 +302,7 @@
         "label": "Button Url",
         "valueType": "string",
         "validation": {
-          "rootPath": "/content/sites"
+          "rootPath": "/content"
         }
       }
     ]
