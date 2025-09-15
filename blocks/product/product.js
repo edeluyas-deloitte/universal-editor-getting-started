@@ -44,7 +44,7 @@ export default async function decorate(block) {
 
   contentDiv.innerHTML = `
     <picture class="product-image">
-      <img loading="lazy" src="${authorurl}${data.productImage._path}" alt="${data.productName}" />
+      <img loading="lazy" src="${data.productImage._path}" alt="${data.productName}" />
     </picture>
     <div class="product-info">
       <h3>${data.productName}</h3>
