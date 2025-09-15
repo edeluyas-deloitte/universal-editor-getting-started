@@ -2,11 +2,11 @@ export default async function decorate(block) {
   const authorurl = 'https://author-p9606-e71941.adobeaemcloud.com';
   const graphUrl = '/graphql/execute.json/ez-eds/get-product-by-path;path=';
 
-  const contentPath = block.querySelector(':scope div:nth-child(1) > p > a') ?.innerHTML || '';
+  const contentPath = block.querySelector(':scope div:nth-child(1) > p > a')?.innerHTML || '';
 
   let url = `${authorurl}${graphUrl}${contentPath}`;
   if (url.endsWith('.html')) {
-    url = url.replace(0, -5)
+    url = url.replace(0, -5);
   }
 
   const options = { credentials: 'include' };
@@ -31,8 +31,8 @@ export default async function decorate(block) {
   }
 
   const buttonText = block.querySelector(':scope div:nth-child(2)> div > p').innerHTML;
-  const buttonHref = block.querySelector(':scope div:nth-child(3) > div > p > a') ?.getAttribute('href') || '#';
-  const buttonTarget = block.querySelector(':scope div:nth-child(4) > div > p') ?.innerHTML || '_self';
+  const buttonHref = block.querySelector(':scope div:nth-child(3) > div > p > a')?.getAttribute('href') || '#';
+  const buttonTarget = block.querySelector(':scope div:nth-child(4) > div > p')?.innerHTML || '_self';
 
   const productButtonA = document.createElement('a');
   productButtonA.setAttribute('href', buttonHref);
@@ -63,7 +63,7 @@ export default async function decorate(block) {
 
   productContentDiv.innerHTML = `
     <picture class="product-image">
-      <img loading="lazy" src="${authorurl}${data.productImage._path}" alt="${data.productName}" />
+      <img loading="lazy" src="${authorurl}${data.productImage.path}" alt="${data.productName}" />
     </picture>
     <div class="product-info">
       <h3>${data.productName}</h3>
