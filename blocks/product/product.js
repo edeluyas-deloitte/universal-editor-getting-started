@@ -32,7 +32,7 @@ export default async function decorate(block) {
 
   const buttonText = block.querySelector(':scope div:nth-child(2)> div > p').innerHTML;
   const buttonHref = block.querySelector(':scope div:nth-child(3) > div > p > a') ?.getAttribute('href') || '#';
-  const buttonTarget = block.querySelector(':scope div:nth-child(3) > div > p') ?.innerHTML || '_self';
+  const buttonTarget = block.querySelector(':scope div:nth-child(4) > div > p') ?.innerHTML || '_self';
 
   const productButtonA = document.createElement('a');
   productButtonA.setAttribute('href', buttonHref);
@@ -47,21 +47,16 @@ export default async function decorate(block) {
   const productButtonDiv = block.querySelector(':scope div:nth-child(2) > div');
   productButtonDiv.classList.add('product-button');
   productButtonDiv.appendChild(productButtonA);
-
-  const buttonTextDiv = block.querySelector(':scope div:nth-child(2)');
-  if (buttonTextDiv) {
-    buttonTextDiv.remove();
-  }
-
-  const buttonLinkDiv = block.querySelector(':scope div:nth-child(3)');
-  if (buttonLinkDiv) {
-    buttonLinkDiv.remove();
-  }
-
-  const buttonTargetDiv = block.querySelector(':scope div:nth-child(4)');
-  if (buttonTargetDiv) {
-    buttonTargetDiv.remove();
-  }
+  
+  // Remove all other divs except the first one
+  // We only need the first div to hold the product content
+  // The other divs were used to hold the button text, link, and target
+  // which we have already extracted and used to create the button
+  // So we can safely remove them
+  const divs = block.querySelectorAll(':scope div > div');
+  divs.forEach((div, index) => {
+    if (index > 0) div.remove();
+  });
 
   const productContentDiv = block.querySelector(':scope div:nth-child(1)');
   productContentDiv.classList.add('product-content');
