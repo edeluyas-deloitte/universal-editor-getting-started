@@ -54,7 +54,7 @@
           "options": [
             {
               "name": "Is open in new tab?",
-              "value": true
+              "value": "_blank"
             }
           ]
         }

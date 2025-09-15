@@ -2,11 +2,14 @@ export default async function decorate(block) {
   const authorurl = 'https://author-p9606-e71941.adobeaemcloud.com';
   const graphUrl = '/graphql/execute.json/ez-eds/get-product-by-path;path=';
 
-  const contentPath = block.querySelector(':scope div:nth-child(1) > p > a') ?.getAttribute('href') || '';
+  const contentPath = block.querySelector(':scope div:nth-child(1) > p > a') ?.innerHTML || '';
 
   console.log('Content Path:', contentPath);
 
-  const url = `${authorurl}${graphUrl}${contentPath}`;
+  let url = `${authorurl}${graphUrl}${contentPath}`;
+  if (url.endsWith('.html')) {
+    url = url.replace(0, -5)
+  }
 
   const options = { credentials: 'include' };
 
@@ -24,8 +27,6 @@ export default async function decorate(block) {
       return null;
     });
 
-  console.log(block)
-
   const cfButton = block.querySelector(':scope p.button-container');
   if (cfButton) {
     cfButton.remove();
@@ -33,9 +34,11 @@ export default async function decorate(block) {
 
   const buttonText = block.querySelector(':scope div:nth-child(2)> div > p').innerHTML;
   const buttonHref = block.querySelector(':scope div:nth-child(3) > div > p > a') ?.getAttribute('href') || '#';
+  const buttonTarget = block.querySelector(':scope div:nth-child(3) > div > p') ?.innerHTML || '_self';
 
   const productButtonA = document.createElement('a');
   productButtonA.setAttribute('href', buttonHref);
+  productButtonA.setAttribute('target', buttonTarget);
   productButtonA.innerHTML = buttonText;
 
   const buttonTextP = block.querySelector(':scope div:nth-child(2) > div > p');
@@ -48,9 +51,18 @@ export default async function decorate(block) {
   productButtonDiv.appendChild(productButtonA);
 
   const buttonTextDiv = block.querySelector(':scope div:nth-child(2)');
-
   if (buttonTextDiv) {
     buttonTextDiv.remove();
+  }
+
+  const buttonLinkDiv = block.querySelector(':scope div:nth-child(3)');
+  if (buttonLinkDiv) {
+    buttonLinkDiv.remove();
+  }
+
+  const buttonTargetDiv = block.querySelector(':scope div:nth-child(4)');
+  if (buttonTargetDiv) {
+    buttonTargetDiv.remove();
   }
 
   const productContentDiv = block.querySelector(':scope div:nth-child(1)');
