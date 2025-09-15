@@ -4,8 +4,6 @@ export default async function decorate(block) {
 
   const contentPath = block.querySelector(':scope div:nth-child(1) > p > a') ?.innerHTML || '';
 
-  console.log('Content Path:', contentPath);
-
   let url = `${authorurl}${graphUrl}${contentPath}`;
   if (url.endsWith('.html')) {
     url = url.replace(0, -5)
@@ -78,6 +76,4 @@ export default async function decorate(block) {
     </div>
     ${productButtonDiv.outerHTML}
   `;
-
-
 }
