@@ -304,6 +304,18 @@
         "validation": {
           "rootPath": "/content"
         }
+      },
+      {
+        "component": "checkbox-group",
+        "label": "Checkbox Group",
+        "name": "checkbox",
+        "valueType": "string[]",
+        "options": [
+          {
+            "name": "Is open in new tab?",
+            "value": true
+          }
+        ]
       }
     ]
   }

@@ -4,6 +4,8 @@ export default async function decorate(block) {
 
   const contentPath = block.querySelector(':scope div:nth-child(1) > p > a') ?.getAttribute('href') || '';
 
+  console.log('Content Path:', contentPath);
+
   const url = `${authorurl}${graphUrl}${contentPath}`;
 
   const options = { credentials: 'include' };
@@ -22,25 +24,39 @@ export default async function decorate(block) {
       return null;
     });
 
-  const buttonP = block.querySelector(':scope p.button-container');
-  if (buttonP) {
-    buttonP.remove();
+  console.log(block)
+
+  const cfButton = block.querySelector(':scope p.button-container');
+  if (cfButton) {
+    cfButton.remove();
   }
 
-  const buttonDiv = block.querySelector(':scope div:nth-child(2)> div');
+  const buttonText = block.querySelector(':scope div:nth-child(2)> div > p').innerHTML;
+  const buttonHref = block.querySelector(':scope div:nth-child(3) > div > p > a') ?.getAttribute('href') || '#';
 
-  buttonDiv.classList.add('product-button');
+  const productButtonA = document.createElement('a');
+  productButtonA.setAttribute('href', buttonHref);
+  productButtonA.innerHTML = buttonText;
 
-  const lastChildDiv = block.querySelector(':scope div:nth-child(2)');
-
-  if (lastChildDiv) {
-    lastChildDiv.remove();
+  const buttonTextP = block.querySelector(':scope div:nth-child(2) > div > p');
+  if (buttonTextP) {
+    buttonTextP.remove();
   }
 
-  const contentDiv = block.querySelector(':scope div:nth-child(1)');
-  contentDiv.classList.add('product-content');
+  const productButtonDiv = block.querySelector(':scope div:nth-child(2) > div');
+  productButtonDiv.classList.add('product-button');
+  productButtonDiv.appendChild(productButtonA);
 
-  contentDiv.innerHTML = `
+  const buttonTextDiv = block.querySelector(':scope div:nth-child(2)');
+
+  if (buttonTextDiv) {
+    buttonTextDiv.remove();
+  }
+
+  const productContentDiv = block.querySelector(':scope div:nth-child(1)');
+  productContentDiv.classList.add('product-content');
+
+  productContentDiv.innerHTML = `
     <picture class="product-image">
       <img loading="lazy" src="${authorurl}${data.productImage._path}" alt="${data.productName}" />
     </picture>
@@ -48,6 +64,8 @@ export default async function decorate(block) {
       <h3>${data.productName}</h3>
       ${data.productDescription.html}
     </div>
-    ${buttonDiv.outerHTML}
+    ${productButtonDiv.outerHTML}
   `;
+
+
 }
