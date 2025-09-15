@@ -4,10 +4,9 @@ export default async function decorate(block) {
 
   const contentPath = block.querySelector(':scope div:nth-child(1) > p > a') ?.getAttribute('href') || '';
 
-  const url = `${authorurl}${graphUrl}${contentPath}`;
+  const url = `${authorurl}${graphUrl}${encodeURIComponent(contentPath)}`;
 
-  const options = { credentials: 'include' };
-  const data = await fetch(url, options)
+  const data = await fetch(url)
     .then((response) => response.json())
     .then((cf) => {
       let cfData = '';
