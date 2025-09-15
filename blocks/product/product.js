@@ -32,11 +32,10 @@ export default async function decorate(block) {
 
   const buttonText = block.querySelector(':scope div:nth-child(2)> div > p').innerHTML;
   const buttonHref = block.querySelector(':scope div:nth-child(3) > div > p > a')?.getAttribute('href') || '#';
-  const buttonTarget = block.querySelector(':scope div:nth-child(4) > div > p')?.innerHTML || '_self';
 
   const productButtonA = document.createElement('a');
   productButtonA.setAttribute('href', buttonHref);
-  productButtonA.setAttribute('target', buttonTarget);
+  productButtonA.setAttribute('target', '_blank');
   productButtonA.innerHTML = buttonText;
 
   const buttonTextP = block.querySelector(':scope div:nth-child(2) > div > p');
@@ -47,7 +46,6 @@ export default async function decorate(block) {
   const productButtonDiv = block.querySelector(':scope div:nth-child(2) > div');
   productButtonDiv.classList.add('product-button');
   productButtonDiv.appendChild(productButtonA);
-  
   // Remove all other divs except the first one
   // We only need the first div to hold the product content
   // The other divs were used to hold the button text, link, and target
