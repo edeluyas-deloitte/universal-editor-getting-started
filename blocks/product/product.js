@@ -1,11 +1,8 @@
 export default async function decorate(block) {
-  const authorurl = 'https://author-p9606-e71941.adobeaemcloud.com'
+  const authorurl = 'https://author-p9606-e71941.adobeaemcloud.com';
   const graphUrl = '/graphql/execute.json/ez-eds/get-product-by-path;path=';
 
-  const contentPath =
-    block
-      .querySelector(':scope div:nth-child(1) > p > a')
-      ?.getAttribute('href') || '';
+  const contentPath = block.querySelector(':scope div:nth-child(1) > p > a') ?.getAttribute('href') || '';
 
   const url = `${authorurl}${graphUrl}${contentPath}`;
 

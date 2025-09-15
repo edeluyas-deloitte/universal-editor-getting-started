@@ -296,10 +296,14 @@
         "valueType": "string"
       },
       {
-        "component": "reference",
-        "label": "Button Url",
+        "component": "aem-content",
         "name": "reference",
-        "valueType": "string"
+        "value": "",
+        "label": "Button Url",
+        "valueType": "string",
+        "validation": {
+          "rootPath": "/content/sites"
+        }
       }
     ]
   }
