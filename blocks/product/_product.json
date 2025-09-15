@@ -35,6 +35,16 @@
           "name": "text",
           "label": "Button Text",
           "valueType": "string"
+        },
+        {
+          "component": "aem-content",
+          "name": "reference",
+          "value": "",
+          "label": "Button Url",
+          "valueType": "string",
+          "validation": {
+            "rootPath": "/content/sites"
+          }
         }
       ]
     }
