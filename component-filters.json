@@ -46,7 +46,8 @@
   {
     "id": "products",
     "components": [
-      "item"
+      "item",
+      "text"
     ]
   }
 ]
