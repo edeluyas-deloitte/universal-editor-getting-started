@@ -17,7 +17,8 @@
       "columns",
       "fragment",
       "quote",
-      "product"
+      "product",
+      "products"
     ]
   },
   {
@@ -39,6 +40,12 @@
       "image",
       "button",
       "title",
+      "product"
+    ]
+  },
+  {
+    "id": "products",
+    "components": [
       "product"
     ]
   }
