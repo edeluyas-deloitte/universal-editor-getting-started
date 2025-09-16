@@ -16,15 +16,15 @@
       }
     },
     {
-      "title": "Product",
-      "id": "product",
+      "title": "Item",
+      "id": "item",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "Product",
-              "model": "product"
+              "name": "Item",
+              "model": "item"
             }
           }
         }
@@ -33,7 +33,7 @@
   ],
   "models": [
     {
-      "id": "product",
+      "id": "item",
       "fields": [
         {
           "component": "aem-content-fragment",
@@ -68,7 +68,7 @@
     {
       "id": "products",
       "components": [
-        "product"
+        "item"
       ]
     }
   ]
