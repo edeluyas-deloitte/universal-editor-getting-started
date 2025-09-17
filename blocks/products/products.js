@@ -1,8 +1,7 @@
 export default async function decorate(block) {
-  if (!hasAnyEmptyDiv(block)) {
+  if (!areContentPathEmpty(block)) {
     const productBlock = document.querySelectorAll('.products.block > div');
     const productsData = getProductFields(productBlock);
-    
     block.innerHTML = '';
     for (const product of productsData) {
       const productData = await getProductDataByContentPath(product.contentPath);
@@ -16,35 +15,22 @@ export default async function decorate(block) {
   }
 }
 
-function hasAnyEmptyDiv(parent) {
-  // Get all direct child divs inside the parent
-  const children = parent.querySelectorAll(':scope > div');
+function areContentPathEmpty(parent) {
+  // fetch all the 1st div in each Product Block
+  const contentPathDiv = parent.querySelectorAll(':scope > div > div:nth-child(1)');
 
-  // Return true if any child div contains at least one empty div or empty content
-  return Array.from(children).some(childDiv => {
-    const childNodes = Array.from(childDiv.childNodes);
-
-    // If no child nodes, treat as empty div present
-    if (childNodes.length === 0) return true;
-
-    // Check if any child node is an empty div or whitespace text
-    return childNodes.some(node => {
-      if (node.nodeType === Node.ELEMENT_NODE) {
-        return node.tagName === 'DIV' && node.innerHTML.trim() === '';
-      } else if (node.nodeType === Node.TEXT_NODE) {
-        return node.textContent.trim() === '';
-      }
-      // Other nodes ignore
-      return false;
-    });
-  });
+  // immediately return true if the node is empty
+  // content path should not be empty on any Product Block
+  return Array.from(contentPathDiv).some(div => {
+    return div.childNodes.length === 0;
+  })
 }
 
 function getProductFields(productBlock) {
   return Array.from(productBlock).map((block) => {
     const contentPath = block.querySelector(':scope .button-container a')?.getAttribute('href') || '';
-    const buttonText = block.querySelector(':scope div:nth-child(2) p')?.textContent.trim() || '';
-    const buttonUrl = block.querySelector(':scope div:nth-child(3) a')?.href || '';
+    const buttonText = block.querySelector(':scope div:nth-child(2) p')?.textContent.trim() || 'Find out more';
+    const buttonUrl = block.querySelector(':scope div:nth-child(3) a')?.href || '#';
 
     return {
       contentPath,
@@ -112,8 +98,8 @@ function createItemBlock(item) {
   content.appendChild(desc);
 
   const link = document.createElement('a');
-  link.href = item.buttonUrl || '#';
-  link.textContent = item.buttonText || 'Find out more';
+  link.href = item.buttonUrl
+  link.textContent = item.buttonText
   link.classList.add('item-link');
   content.appendChild(link);
 
