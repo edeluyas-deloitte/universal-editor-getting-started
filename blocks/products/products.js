@@ -45,7 +45,7 @@ function getProductFields(productBlock) {
 }
 
 async function getProductDataByContentPath(contentPath) {
-  const authorUrl = getMetadata('keywords');
+  const authorUrl = window.location.origin;
   console.log('getProductDataByContentPath', authorUrl);
   let url = `${authorUrl}${graphqlUrl}${contentPath}`;
   if (url.endsWith('.html')) {
@@ -69,7 +69,7 @@ async function getProductDataByContentPath(contentPath) {
 }
 
 function createProductBlock(product) {
-  const authorUrl = getMetadata('keywords');
+  const authorUrl = window.location.origin;
   console.log('createProductBlock', authorUrl);
   const card = document.createElement('div');
   card.classList.add('product', 'block', 'product-card');
