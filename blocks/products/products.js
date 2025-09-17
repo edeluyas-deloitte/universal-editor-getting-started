@@ -1,24 +1,6 @@
 import { getMetadata } from '../../scripts/aem.js'
 export const graphqlUrl = '/graphql/execute.json/ez-eds/get-product-by-path;path=';
 
-export default async function decorate(block) {
-  if (!areContentPathEmpty(block)) {
-    const productBlock = document.querySelectorAll('.products.block > div');
-    const productsData = getProductFields(productBlock);
-    block.innerHTML = '';
-    
-    for (const product of productsData) {
-      const productData = await getProductDataByContentPath(product.contentPath);
-      const combinedData = {
-        ...product,
-        ...productData,
-      };
-      const productBlock = createProductBlock(combinedData);
-      block.appendChild(productBlock);
-    }
-  }
-}
-
 function areContentPathEmpty(parent) {
   // fetch all the 1st div in each Product Block
   const contentPathDiv = parent.querySelectorAll(':scope > div > div:nth-child(1)');
@@ -45,7 +27,7 @@ function getProductFields(productBlock) {
 }
 
 async function getProductDataByContentPath(contentPath) {
-  const authorUrl = window.location.origin;
+  const authorUrl = getMetadata('keywords');
   console.log('getProductDataByContentPath', authorUrl);
   let url = `${authorUrl}${graphqlUrl}${contentPath}`;
   if (url.endsWith('.html')) {
@@ -69,7 +51,7 @@ async function getProductDataByContentPath(contentPath) {
 }
 
 function createProductBlock(product) {
-  const authorUrl = window.location.origin;
+  const authorUrl = getMetadata('keywords');
   console.log('createProductBlock', authorUrl);
   const card = document.createElement('div');
   card.classList.add('product', 'block', 'product-card');
@@ -111,3 +93,24 @@ function createProductBlock(product) {
 
   return card;
 }
+
+export default async function decorate(block) {
+  if (!areContentPathEmpty(block)) {
+    const productBlockDiv = document.querySelectorAll('.products.block > div');
+    const productsData = getProductFields(productBlockDiv);
+    block.innerHTML = '';
+    
+    for (const product of productsData) {
+      const productData = getProductDataByContentPath(product.contentPath);
+      const combinedData = {
+        ...product,
+        ...productData,
+      };
+      const productBlock = createProductBlock(combinedData);
+      block.appendChild(productBlock);
+    }
+  }
+}
+
+
+
