@@ -1,16 +1,21 @@
+export const authorUrl = 'https://author-p9606-e71941.adobeaemcloud.com';
+export const graphqlUrl = '/graphql/execute.json/ez-eds/get-product-by-path;path=';
+
 export default async function decorate(block) {
   if (!areContentPathEmpty(block)) {
     const productBlock = document.querySelectorAll('.products.block > div');
     const productsData = getProductFields(productBlock);
     block.innerHTML = '';
+    
     for (const product of productsData) {
       const productData = await getProductDataByContentPath(product.contentPath);
       const combinedData = {
         ...product,
         ...productData,
       };
-      const itemBlock = createItemBlock(combinedData);
-      block.appendChild(itemBlock);
+      console.log(JSON.stringify(combinedData));
+      const productBlock = createProductBlock(combinedData);
+      block.appendChild(productBlock);
     }
   }
 }
@@ -41,9 +46,7 @@ function getProductFields(productBlock) {
 }
 
 async function getProductDataByContentPath(contentPath) {
-  const authorurl = 'https://author-p9606-e71941.adobeaemcloud.com';
-  const graphUrl = '/graphql/execute.json/ez-eds/get-product-by-path;path=';
-  let url = `${authorurl}${graphUrl}${contentPath}`;
+  let url = `${authorUrl}${graphqlUrl}${contentPath}`;
   if (url.endsWith('.html')) {
     url = url.replace(0, -5);
   }
@@ -64,43 +67,41 @@ async function getProductDataByContentPath(contentPath) {
     });
 }
 
-function createItemBlock(item) {
-  const authorurl = 'https://author-p9606-e71941.adobeaemcloud.com';
-
+function createProductBlock(product) {
   const card = document.createElement('div');
-  card.classList.add('item-card');
+  card.classList.add('product', 'block', 'product-card');
 
   const picture = document.createElement('picture');
 
   const sourceWebp = document.createElement('source');
   sourceWebp.type = 'image/png';
-  sourceWebp.srcset = `${authorurl}${item.productImage?.path.replace(/\.\w+$/, '.png') || ''}`;
+  sourceWebp.srcset = `${authorUrl}${product.productImage?.path.replace(/\.\w+$/, '.png') || ''}`;
   picture.appendChild(sourceWebp);
 
   const img = document.createElement('img');
-  img.src = `${authorurl}${item.productImage?.path || ''}`;
-  img.alt = item.productName || 'Item image';
-  img.classList.add('item-image');
+  img.src = `${authorUrl}${product.productImage?.path || ''}`;
+  img.alt = product.productName || 'Product image';
+  img.classList.add('product-image');
   picture.appendChild(img);
 
   card.appendChild(picture);
 
   const content = document.createElement('div');
-  content.classList.add('item-content');
+  content.classList.add('product-content');
 
   const title = document.createElement('h3');
-  title.textContent = item.productName || '';
+  title.textContent = product.productName || '';
   content.appendChild(title);
 
   const desc = document.createElement('div');
-  desc.classList.add('item-description');
-  desc.innerHTML = item.productDescription?.html || '';
+  desc.classList.add('product-description');
+  desc.innerHTML = product.productDescription?.html || '';
   content.appendChild(desc);
 
   const link = document.createElement('a');
-  link.href = item.buttonUrl
-  link.textContent = item.buttonText
-  link.classList.add('item-link');
+  link.href = product.buttonUrl
+  link.textContent = product.buttonText
+  link.classList.add('product-link');
   content.appendChild(link);
 
   card.appendChild(content);
