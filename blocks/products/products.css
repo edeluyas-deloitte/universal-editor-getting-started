@@ -9,7 +9,7 @@
 .product-card {
   background: #fff;
   border-radius: 16px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 16px #00000014;
   max-width: 370px;
   width: 100%;
   display: flex;
@@ -24,7 +24,7 @@
   display: flex;
   justify-content: center;
   background: #f3f4f6;
-  padding: 24px 0 0 0;
+  padding: 24px 0 0;
 }
 
 .product-image {
@@ -34,7 +34,7 @@
 }
 
 .product-content {
-  padding: 24px 24px 16px 24px;
+  padding: 24px 24px 16px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -43,7 +43,7 @@
 .product-content h3 {
   font-size: 24px;
   font-weight: 700;
-  margin: 0 0 8px 0;
+  margin: 0 0 8px;
   color: #1a2341;
 }
 
@@ -59,7 +59,7 @@
 
 .product-description ul {
   padding-left: 20px;
-  margin: 12px 0 0 0;
+  margin: 12px 0 0;
 }
 
 .product-description li {
@@ -71,7 +71,6 @@
 
 .product-link {
   text-align: center;
-  vertical-align: center;
   margin-top: 18px;
   display: inline-block;
   padding: 6px 16px;
@@ -96,20 +95,20 @@
 
 .ucr-div {
   background-color: #fdecea;
-  border-left: 4px solid #cc0000;
+  border-left: 4px solid #c00;
   padding: 10px 14px;
-  margin-bottom: 12px;
   font-size: 16px;
   color: #a10000;
-  margin: 8px 0;
+  margin: 8px 0 16px;
 }
 
-@media (max-width: 800px) {
+@media (width <= 800px) {
   .products.block {
     flex-direction: column;
     gap: 24px;
     padding: 16px 0;
   }
+
   .product-card {
     max-width: 100%;
   }
