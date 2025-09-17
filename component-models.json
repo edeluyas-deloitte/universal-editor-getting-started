@@ -287,7 +287,8 @@
         "variationName": "contentFragmentVariation",
         "validation": {
           "rootPath": "/content/dam"
-        }
+        },
+        "required": true
       },
       {
         "component": "text",
