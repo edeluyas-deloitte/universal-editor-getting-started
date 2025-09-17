@@ -2,12 +2,10 @@ export default async function decorate(block) {
   if (!hasOnlyEmptyDivs(block)) {
     const productBlock = document.querySelectorAll('.products.block > div');
     const productsData = getProductFields(productBlock);
-    if (productsData) {
+    if (productsData.contentPath) {
       block.innerHTML = '';
       for (const product of productsData) {
-        const productData = await getProductDataByContentPath(
-          product.contentPath
-        );
+        const productData = await getProductDataByContentPath(product.contentPath);
         const combinedData = {
           ...product,
           ...productData,
@@ -15,10 +13,10 @@ export default async function decorate(block) {
         const itemBlock = createItemBlock(combinedData);
         block.appendChild(itemBlock);
       }
+    } else {
+      block.innerHTML = '';
     }
   }
-
-  
 }
 
 function hasOnlyEmptyDivs(parent) {
@@ -42,14 +40,9 @@ function hasOnlyEmptyDivs(parent) {
 
 function getProductFields(productBlock) {
   return Array.from(productBlock).map((block) => {
-    const contentPath =
-      block.querySelector(':scope .button-container a')?.getAttribute('href') ||
-      '';
-    const buttonText =
-      block.querySelector(':scope div:nth-child(2) p')?.textContent.trim() ||
-      '';
-    const buttonUrl =
-      block.querySelector(':scope div:nth-child(3) a')?.href || '';
+    const contentPath = block.querySelector(':scope .button-container a')?.getAttribute('href') || '';
+    const buttonText = block.querySelector(':scope div:nth-child(2) p')?.textContent.trim() || '';
+    const buttonUrl = block.querySelector(':scope div:nth-child(3) a')?.href || '';
 
     return {
       contentPath,
@@ -79,8 +72,7 @@ async function getProductDataByContentPath(contentPath) {
       return cfData;
     })
     .catch((error) => {
-      console.log('Error fetching data:', error);
-      return null;
+      throw new Error(`Failed to fetch GraphQL Data: ${error.message}`);
     });
 }
 
@@ -93,10 +85,8 @@ function createItemBlock(item) {
   const picture = document.createElement('picture');
 
   const sourceWebp = document.createElement('source');
-  sourceWebp.type = 'image/webp';
-  sourceWebp.srcset = `${authorurl}${
-    item.productImage?.path.replace(/\.\w+$/, '.webp') || ''
-  }`;
+  sourceWebp.type = 'image/png';
+  sourceWebp.srcset = `${authorurl}${item.productImage?.path.replace(/\.\w+$/, '.png') || ''}`;
   picture.appendChild(sourceWebp);
 
   const img = document.createElement('img');
