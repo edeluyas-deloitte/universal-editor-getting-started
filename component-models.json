@@ -306,36 +306,5 @@
         }
       }
     ]
-  },
-  {
-      "id": "item",
-      "fields": [
-        {
-          "component": "aem-content-fragment",
-          "name": "picker",
-          "label": "AEM Content Fragment Picker",
-          "valueType": "string",
-          "variationName": "contentFragmentVariation",
-          "validation": {
-            "rootPath": "/content/dam"
-          }
-        },
-        {
-          "component": "text",
-          "name": "text",
-          "label": "Button Text",
-          "valueType": "string"
-        },
-        {
-          "component": "aem-content",
-          "name": "reference",
-          "value": "",
-          "label": "Button Url",
-          "valueType": "string",
-          "validation": {
-            "rootPath": "/content"
-          }
-        }
-      ]
-    }
+  }
 ]
