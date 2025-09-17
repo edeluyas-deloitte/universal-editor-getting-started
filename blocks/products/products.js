@@ -1,4 +1,4 @@
-import { getMetadata } from '../../scripts/aem.js'
+import { getMetadata } from '../../scripts/aem.js';
 export const graphqlUrl = '/graphql/execute.json/ez-eds/get-product-by-path;path=';
 
 function areContentPathEmpty(parent) {
@@ -7,9 +7,7 @@ function areContentPathEmpty(parent) {
 
   // immediately return true if the node is empty
   // content path should not be empty on any Product Block
-  return Array.from(contentPathDiv).some(div => {
-    return div.childNodes.length === 0;
-  })
+  return Array.from(contentPathDiv).some(div => div.childNodes.length === 0);
 }
 
 function getProductFields(productBlock) {
@@ -36,7 +34,7 @@ async function getProductDataByContentPath(contentPath) {
 
   const options = { credentials: 'include' };
 
-  return await fetch(url, options)
+  return fetch(url, options)
     .then((response) => response.json())
     .then((cf) => {
       let cfData = '';
@@ -84,8 +82,8 @@ function createProductBlock(product) {
   content.appendChild(desc);
 
   const link = document.createElement('a');
-  link.href = product.buttonUrl
-  link.textContent = product.buttonText
+  link.href = product.buttonUrl;
+  link.textContent = product.buttonText;
   link.classList.add('product-link');
   content.appendChild(link);
 
@@ -99,7 +97,6 @@ export default async function decorate(block) {
     const productBlockDiv = document.querySelectorAll('.products.block > div');
     const productsData = getProductFields(productBlockDiv);
     block.innerHTML = '';
-    
     for (const product of productsData) {
       const productData = getProductDataByContentPath(product.contentPath);
       const combinedData = {
