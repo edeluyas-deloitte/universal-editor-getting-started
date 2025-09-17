@@ -1,29 +1,54 @@
 export default async function decorate(block) {
-  
-  const productBlock = document.querySelectorAll('.products.block > div');
-  console.log(productBlock)
+  if (!hasOnlyEmptyDivs(block)) {
+    if (productBlock) {
+      const productsData = getProductFields(productBlock);
+      block.innerHTML = '';
+      for (const product of productsData) {
+        const productData = await getProductDataByContentPath(
+          product.contentPath
+        );
+        const combinedData = {
+          ...product,
+          ...productData,
+        };
+        const itemBlock = createItemBlock(combinedData);
+        block.appendChild(itemBlock);
+      }
+    }
+  }
 
-  // if (productBlock) {
-  //   const productsData = getProductFields(productBlock);
-  //   block.innerHTML = '';
-  //   for (const product of productsData) {
-  //     const productData = await getProductDataByContentPath(product.contentPath);
-  //     const combinedData = {
-  //       ...product,
-  //       ...productData,
-  //     };
-  //     const itemBlock = createItemBlock(combinedData);
-  //     block.appendChild(itemBlock);
-  //   }
-  // }
+  const productBlock = document.querySelectorAll('.products.block > div');
+}
+
+function hasOnlyEmptyDivs(parent) {
+  const children = parent.querySelectorAll(':scope > div');
+
+  return Array.from(children).every((childDiv) => {
+    const childNodes = Array.from(childDiv.childNodes);
+
+    if (childNodes.length === 0) return true;
+
+    return childNodes.every((node) => {
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        return node.tagName === 'DIV' && node.innerHTML.trim() === '';
+      } else if (node.nodeType === Node.TEXT_NODE) {
+        return node.textContent.trim() === '';
+      }
+      return true;
+    });
+  });
 }
 
 function getProductFields(productBlock) {
-
   return Array.from(productBlock).map((block) => {
-    const contentPath = block.querySelector(':scope .button-container a')?.getAttribute('href') || '';
-    const buttonText = block.querySelector(':scope div:nth-child(2) p')?.textContent.trim() || '';
-    const buttonUrl = block.querySelector(':scope div:nth-child(3) a')?.href || '';
+    const contentPath =
+      block.querySelector(':scope .button-container a')?.getAttribute('href') ||
+      '';
+    const buttonText =
+      block.querySelector(':scope div:nth-child(2) p')?.textContent.trim() ||
+      '';
+    const buttonUrl =
+      block.querySelector(':scope div:nth-child(3) a')?.href || '';
 
     return {
       contentPath,
@@ -31,7 +56,6 @@ function getProductFields(productBlock) {
       buttonUrl,
     };
   });
-
 }
 
 async function getProductDataByContentPath(contentPath) {
@@ -69,7 +93,9 @@ function createItemBlock(item) {
 
   const sourceWebp = document.createElement('source');
   sourceWebp.type = 'image/webp';
-  sourceWebp.srcset = `${authorurl}${item.productImage?.path.replace(/\.\w+$/, '.webp') || ''}`;
+  sourceWebp.srcset = `${authorurl}${
+    item.productImage?.path.replace(/\.\w+$/, '.webp') || ''
+  }`;
   picture.appendChild(sourceWebp);
 
   const img = document.createElement('img');
