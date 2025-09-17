@@ -8,7 +8,7 @@ function areContentPathEmpty(parent) {
 
   // immediately return true if the node is empty
   // content path should not be empty on any Product Block
-  return Array.from(contentPathDiv).some(div => { div.childNodes.length === 0 });
+  return Array.from(contentPathDiv).some(div => { div.childNodes.length === 0; });
 }
 
 function getProductFields(productBlock) {
@@ -37,10 +37,8 @@ async function getProductDataByContentPath(contentPath) {
   try {
     const response = await fetch(url, options);
     const cf = await response.json();
-
     const cfData = cf?.data?.productByPath?.item || '';
     return cfData;
-
   } catch (error) {
     throw new Error(`Failed to fetch GraphQL Data: ${error.message}`);
   }
@@ -94,15 +92,40 @@ export default async function decorate(block) {
     const productBlockDiv = document.querySelectorAll('.products.block > div');
     const productsData = getProductFields(productBlockDiv);
     block.innerHTML = '';
-    for (const product of productsData) {
-      const productData = getProductDataByContentPath(product.contentPath);
-      console.log(JSON.stringify(productData))
-      const combinedData = {
-        ...product,
-        ...productData,
-      };
-      const productBlock = createProductBlock(combinedData);
+
+    const productBlocks = await Promise.all(
+      productsData.map(async (product) => {
+        const productData = await getProductDataByContentPath(product.contentPath);
+        console.log(JSON.stringify(productData));
+
+        const combinedData = {
+          ...product,
+          ...productData,
+        };
+
+        return createProductBlock(combinedData);
+      })
+    );
+
+    productBlocks.forEach((productBlock) => {
       block.appendChild(productBlock);
-    }
+    });
   }
 }
+// export default async function decorate(block) {
+//   if (!areContentPathEmpty(block)) {
+//     const productBlockDiv = document.querySelectorAll('.products.block > div');
+//     const productsData = getProductFields(productBlockDiv);
+//     block.innerHTML = '';
+//     for (const product of productsData) {
+//       const productData = getProductDataByContentPath(product.contentPath);
+//       console.log(JSON.stringify(productData));
+//       const combinedData = {
+//         ...product,
+//         ...productData,
+//       };
+//       const productBlock = createProductBlock(combinedData);
+//       block.appendChild(productBlock);
+//     }
+//   }
+// }
