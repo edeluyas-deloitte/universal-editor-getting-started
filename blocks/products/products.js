@@ -13,7 +13,6 @@ export default async function decorate(block) {
         ...product,
         ...productData,
       };
-      console.log(JSON.stringify(combinedData));
       const productBlock = createProductBlock(combinedData);
       block.appendChild(productBlock);
     }
@@ -47,6 +46,7 @@ function getProductFields(productBlock) {
 
 async function getProductDataByContentPath(contentPath) {
   const authorUrl = getMetadata('keywords');
+  console.log('getProductDataByContentPath', authorUrl);
   let url = `${authorUrl}${graphqlUrl}${contentPath}`;
   if (url.endsWith('.html')) {
     url = url.replace(0, -5);
@@ -70,6 +70,7 @@ async function getProductDataByContentPath(contentPath) {
 
 function createProductBlock(product) {
   const authorUrl = getMetadata('keywords');
+  console.log('createProductBlock', authorUrl);
   const card = document.createElement('div');
   card.classList.add('product', 'block', 'product-card');
 
