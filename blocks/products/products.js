@@ -1,4 +1,5 @@
 import { getMetadata } from '../../scripts/aem.js';
+
 export const graphqlUrl = '/graphql/execute.json/ez-eds/get-product-by-path;path=';
 
 function areContentPathEmpty(parent) {
@@ -7,7 +8,7 @@ function areContentPathEmpty(parent) {
 
   // immediately return true if the node is empty
   // content path should not be empty on any Product Block
-  return Array.from(contentPathDiv).some(div => div.childNodes.length === 0);
+  return Array.from(contentPathDiv).some(div => { div.childNodes.length === 0 });
 }
 
 function getProductFields(productBlock) {
@@ -26,31 +27,27 @@ function getProductFields(productBlock) {
 
 async function getProductDataByContentPath(contentPath) {
   const authorUrl = getMetadata('keywords');
-  console.log('getProductDataByContentPath', authorUrl);
   let url = `${authorUrl}${graphqlUrl}${contentPath}`;
   if (url.endsWith('.html')) {
-    url = url.replace(0, -5);
+    url = url.slice(0, -5);
   }
 
   const options = { credentials: 'include' };
 
-  return fetch(url, options)
-    .then((response) => response.json())
-    .then((cf) => {
-      let cfData = '';
-      if (cf.data) {
-        cfData = cf.data.productByPath.item;
-      }
-      return cfData;
-    })
-    .catch((error) => {
-      throw new Error(`Failed to fetch GraphQL Data: ${error.message}`);
-    });
+  try {
+    const response = await fetch(url, options);
+    const cf = await response.json();
+
+    const cfData = cf?.data?.productByPath?.item || '';
+    return cfData;
+
+  } catch (error) {
+    throw new Error(`Failed to fetch GraphQL Data: ${error.message}`);
+  }
 }
 
 function createProductBlock(product) {
   const authorUrl = getMetadata('keywords');
-  console.log('createProductBlock', authorUrl);
   const card = document.createElement('div');
   card.classList.add('product', 'block', 'product-card');
 
@@ -99,6 +96,7 @@ export default async function decorate(block) {
     block.innerHTML = '';
     for (const product of productsData) {
       const productData = getProductDataByContentPath(product.contentPath);
+      console.log(JSON.stringify(productData))
       const combinedData = {
         ...product,
         ...productData,
@@ -108,6 +106,3 @@ export default async function decorate(block) {
     }
   }
 }
-
-
-
