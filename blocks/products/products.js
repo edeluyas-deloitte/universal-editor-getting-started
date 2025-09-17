@@ -1,19 +1,17 @@
 export default async function decorate(block) {
   if (!hasOnlyEmptyDivs(block)) {
-    if (productBlock) {
-      const productsData = getProductFields(productBlock);
-      block.innerHTML = '';
-      for (const product of productsData) {
-        const productData = await getProductDataByContentPath(
-          product.contentPath
-        );
-        const combinedData = {
-          ...product,
-          ...productData,
-        };
-        const itemBlock = createItemBlock(combinedData);
-        block.appendChild(itemBlock);
-      }
+    const productsData = getProductFields(productBlock);
+    block.innerHTML = '';
+    for (const product of productsData) {
+      const productData = await getProductDataByContentPath(
+        product.contentPath
+      );
+      const combinedData = {
+        ...product,
+        ...productData,
+      };
+      const itemBlock = createItemBlock(combinedData);
+      block.appendChild(itemBlock);
     }
   }
 
