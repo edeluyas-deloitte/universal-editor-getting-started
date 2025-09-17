@@ -1,22 +1,20 @@
 export default async function decorate(block) {
   
   const productsBlock = document.querySelectorAll('.products.block > div');
-  
-  // const productsData = getProductsFields(productsBlock);
 
-  // console.log(productsData);
-
-  // block.innerHTML = '';
-  // for (const product of productsData) {
-  //   const productData = await getProductDataByContentPath(product.contentPath);
-  //   const combinedData = {
-  //     ...product,
-  //     ...productData,
-  //   };
-  //   const itemBlock = createItemBlock(combinedData);
-  //   block.appendChild(itemBlock);
-  // }
-
+  if (productsBlock) {
+    const productsData = getProductsFields(productsBlock);
+    block.innerHTML = '';
+    for (const product of productsData) {
+      const productData = await getProductDataByContentPath(product.contentPath);
+      const combinedData = {
+        ...product,
+        ...productData,
+      };
+      const itemBlock = createItemBlock(combinedData);
+      block.appendChild(itemBlock);
+    }
+  }
 }
 
 function getProductsFields(itemBlock) {
