@@ -1,39 +1,41 @@
 export default async function decorate(block) {
-  if (!hasOnlyEmptyDivs(block)) {
+  if (!hasAnyEmptyDiv(block)) {
     const productBlock = document.querySelectorAll('.products.block > div');
     const productsData = getProductFields(productBlock);
-    if (productsData.contentPath) {
-      block.innerHTML = '';
-      for (const product of productsData) {
-        const productData = await getProductDataByContentPath(product.contentPath);
-        const combinedData = {
-          ...product,
-          ...productData,
-        };
-        const itemBlock = createItemBlock(combinedData);
-        block.appendChild(itemBlock);
-      }
-    } else {
-      block.innerHTML = '';
+    
+    block.innerHTML = '';
+    for (const product of productsData) {
+      const productData = await getProductDataByContentPath(product.contentPath);
+      const combinedData = {
+        ...product,
+        ...productData,
+      };
+      const itemBlock = createItemBlock(combinedData);
+      block.appendChild(itemBlock);
     }
   }
 }
 
-function hasOnlyEmptyDivs(parent) {
+function hasAnyEmptyDiv(parent) {
+  // Get all direct child divs inside the parent
   const children = parent.querySelectorAll(':scope > div');
 
-  return Array.from(children).every((childDiv) => {
+  // Return true if any child div contains at least one empty div or empty content
+  return Array.from(children).some(childDiv => {
     const childNodes = Array.from(childDiv.childNodes);
 
+    // If no child nodes, treat as empty div present
     if (childNodes.length === 0) return true;
 
-    return childNodes.every((node) => {
+    // Check if any child node is an empty div or whitespace text
+    return childNodes.some(node => {
       if (node.nodeType === Node.ELEMENT_NODE) {
         return node.tagName === 'DIV' && node.innerHTML.trim() === '';
       } else if (node.nodeType === Node.TEXT_NODE) {
         return node.textContent.trim() === '';
       }
-      return true;
+      // Other nodes ignore
+      return false;
     });
   });
 }
