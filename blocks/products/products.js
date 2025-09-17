@@ -1,25 +1,26 @@
 export default async function decorate(block) {
   
-  const productsBlock = document.querySelectorAll('.products.block > div');
+  const productBlock = document.querySelectorAll('.products.block > div');
+  console.log(productBlock)
 
-  if (productsBlock) {
-    const productsData = getProductsFields(productsBlock);
-    block.innerHTML = '';
-    for (const product of productsData) {
-      const productData = await getProductDataByContentPath(product.contentPath);
-      const combinedData = {
-        ...product,
-        ...productData,
-      };
-      const itemBlock = createItemBlock(combinedData);
-      block.appendChild(itemBlock);
-    }
-  }
+  // if (productBlock) {
+  //   const productsData = getProductFields(productBlock);
+  //   block.innerHTML = '';
+  //   for (const product of productsData) {
+  //     const productData = await getProductDataByContentPath(product.contentPath);
+  //     const combinedData = {
+  //       ...product,
+  //       ...productData,
+  //     };
+  //     const itemBlock = createItemBlock(combinedData);
+  //     block.appendChild(itemBlock);
+  //   }
+  // }
 }
 
-function getProductsFields(itemBlock) {
+function getProductFields(productBlock) {
 
-  return Array.from(itemBlock).map((block) => {
+  return Array.from(productBlock).map((block) => {
     const contentPath = block.querySelector(':scope .button-container a')?.getAttribute('href') || '';
     const buttonText = block.querySelector(':scope div:nth-child(2) p')?.textContent.trim() || '';
     const buttonUrl = block.querySelector(':scope div:nth-child(3) a')?.href || '';
