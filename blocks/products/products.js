@@ -96,7 +96,6 @@ export default async function decorate(block) {
     const productBlocks = await Promise.all(
       productsData.map(async (product) => {
         const productData = await getProductDataByContentPath(product.contentPath);
-        console.log(JSON.stringify(productData));
 
         const combinedData = {
           ...product,
@@ -104,7 +103,7 @@ export default async function decorate(block) {
         };
 
         return createProductBlock(combinedData);
-      })
+      }),
     );
 
     productBlocks.forEach((productBlock) => {
