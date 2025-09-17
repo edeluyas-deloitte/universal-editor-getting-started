@@ -1,5 +1,6 @@
 export default async function decorate(block) {
   if (!hasOnlyEmptyDivs(block)) {
+    const productBlock = document.querySelectorAll('.products.block > div');
     const productsData = getProductFields(productBlock);
     if (productsData) {
       block.innerHTML = '';
@@ -17,7 +18,7 @@ export default async function decorate(block) {
     }
   }
 
-  const productBlock = document.querySelectorAll('.products.block > div');
+  
 }
 
 function hasOnlyEmptyDivs(parent) {
