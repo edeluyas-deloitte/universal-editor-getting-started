@@ -3,6 +3,10 @@ export default async function decorate(block) {
   
   const productBlocks = document.querySelectorAll('.products.block > div');
 
+  if (productBlocks.length === 0) {
+    return;
+  }
+
   const productsData = getProductsFields(productBlocks);
 
   console.log(productsData);
