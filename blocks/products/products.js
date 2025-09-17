@@ -1,4 +1,4 @@
-export const authorUrl = 'https://author-p9606-e71941.adobeaemcloud.com';
+import { getMetadata } from '../../scripts/aem.js'
 export const graphqlUrl = '/graphql/execute.json/ez-eds/get-product-by-path;path=';
 
 export default async function decorate(block) {
@@ -46,6 +46,7 @@ function getProductFields(productBlock) {
 }
 
 async function getProductDataByContentPath(contentPath) {
+  const authorUrl = getMetadata('keywords');
   let url = `${authorUrl}${graphqlUrl}${contentPath}`;
   if (url.endsWith('.html')) {
     url = url.replace(0, -5);
@@ -68,6 +69,7 @@ async function getProductDataByContentPath(contentPath) {
 }
 
 function createProductBlock(product) {
+  const authorUrl = getMetadata('keywords');
   const card = document.createElement('div');
   card.classList.add('product', 'block', 'product-card');
 
