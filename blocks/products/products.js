@@ -8,7 +8,7 @@ function areContentPathEmpty(parent) {
 
   // immediately return true if the node is empty
   // content path should not be empty on any Product Block
-  return Array.from(contentPathDiv).some(div => { div.childNodes.length === 0; });
+  return Array.from(contentPathDiv).some((div) => div.childNodes.length === 0);
 }
 
 function getProductFields(productBlock) {
@@ -112,20 +112,3 @@ export default async function decorate(block) {
     });
   }
 }
-// export default async function decorate(block) {
-//   if (!areContentPathEmpty(block)) {
-//     const productBlockDiv = document.querySelectorAll('.products.block > div');
-//     const productsData = getProductFields(productBlockDiv);
-//     block.innerHTML = '';
-//     for (const product of productsData) {
-//       const productData = getProductDataByContentPath(product.contentPath);
-//       console.log(JSON.stringify(productData));
-//       const combinedData = {
-//         ...product,
-//         ...productData,
-//       };
-//       const productBlock = createProductBlock(combinedData);
-//       block.appendChild(productBlock);
-//     }
-//   }
-// }
