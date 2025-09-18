@@ -26,16 +26,18 @@ function getProductFields(productBlock) {
 }
 
 async function getProductDataByContentPath(contentPath) {
+  console.log('getProductDataByContentPath');
   const authorUrl = getMetadata('keywords');
   let url = `${authorUrl}${graphqlUrl}${contentPath}`;
   if (url.endsWith('.html')) {
     url = url.slice(0, -5);
   }
-
+   console.log('url', url);
   const options = { credentials: 'include' };
 
   try {
     const response = await fetch(url, options);
+    console.log('response', response);
     const cf = await response.json();
     const cfData = cf?.data?.productByPath?.item || '';
     return cfData;
