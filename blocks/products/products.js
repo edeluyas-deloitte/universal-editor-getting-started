@@ -26,18 +26,14 @@ function getProductFields(productBlock) {
 }
 
 async function getProductDataByContentPath(contentPath) {
-  console.log('getProductDataByContentPath');
   const authorUrl = getMetadata('keywords');
   let url = `${authorUrl}${graphqlUrl}${contentPath}`;
   if (url.endsWith('.html')) {
     url = url.slice(0, -5);
   }
-   console.log('url', url);
   const options = { credentials: 'include' };
-
   try {
     const response = await fetch(url, options);
-    console.log('response', response);
     const cf = await response.json();
     const cfData = cf?.data?.productByPath?.item || '';
     return cfData;
@@ -91,29 +87,24 @@ function createProductBlock(product) {
 
 export default async function decorate(block) {
   if (!areContentPathEmpty(block)) {
-    console.log('block', block);
     const productBlockDiv = document.querySelectorAll(':scope .products.block > div');
-    console.log('productBlockDiv', productBlockDiv[0].outerHTML);
-    console.log('productBlockDiv', productBlockDiv[1].outerHTML);
     const productsData = getProductFields(productBlockDiv);
-    // block.innerHTML = '';
-    console.log('productsData', productsData);
+    block.innerHTML = '';
+    const productBlocks = await Promise.all(
+      productsData.map(async (product) => {
+        const productData = await getProductDataByContentPath(product.contentPath);
 
-    // const productBlocks = await Promise.all(
-    //   productsData.map(async (product) => {
-    //     const productData = await getProductDataByContentPath(product.contentPath);
+        const combinedData = {
+          ...product,
+          ...productData,
+        };
 
-    //     const combinedData = {
-    //       ...product,
-    //       ...productData,
-    //     };
+        return createProductBlock(combinedData);
+      }),
+    );
 
-    //     return createProductBlock(combinedData);
-    //   }),
-    // );
-
-    // productBlocks.forEach((productBlock) => {
-    //   block.appendChild(productBlock);
-    // });
+    productBlocks.forEach((productBlock) => {
+      block.appendChild(productBlock);
+    });
   }
 }
