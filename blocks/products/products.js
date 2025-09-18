@@ -96,7 +96,7 @@ export default async function decorate(block) {
     console.log('productBlockDiv', productBlockDiv[0].outerHTML);
     console.log('productBlockDiv', productBlockDiv[1].outerHTML);
     const productsData = getProductFields(productBlockDiv);
-    block.innerHTML = '';
+    // block.innerHTML = '';
     console.log('productsData', productsData);
 
     const productBlocks = await Promise.all(
