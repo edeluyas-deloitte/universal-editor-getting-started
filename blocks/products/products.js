@@ -91,6 +91,7 @@ function createProductBlock(product) {
 
 export default async function decorate(block) {
   if (!areContentPathEmpty(block)) {
+    console.log('block', block);
     const productBlockDiv = document.querySelectorAll('.products.block > div');
     console.log('productBlockDiv', productBlockDiv[0].outerHTML);
     console.log('productBlockDiv', productBlockDiv[1].outerHTML);
