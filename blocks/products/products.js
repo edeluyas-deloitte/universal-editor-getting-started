@@ -92,7 +92,7 @@ function createProductBlock(product) {
 export default async function decorate(block) {
   if (!areContentPathEmpty(block)) {
     const productBlockDiv = document.querySelectorAll('.products.block > div');
-    console.log('productBlockDiv', productBlockDiv);
+    console.log('productBlockDiv', productBlockDiv[0].outerHTML);
     const productsData = getProductFields(productBlockDiv);
     block.innerHTML = '';
     console.log('productsData', productsData);
