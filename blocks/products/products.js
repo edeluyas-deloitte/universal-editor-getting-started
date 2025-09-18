@@ -106,5 +106,6 @@ export default async function decorate(block) {
     productBlocks.forEach((productBlock) => {
       block.appendChild(productBlock);
     });
+    console.log('block', block);
   }
 }
