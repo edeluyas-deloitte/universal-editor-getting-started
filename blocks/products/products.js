@@ -99,21 +99,21 @@ export default async function decorate(block) {
     // block.innerHTML = '';
     console.log('productsData', productsData);
 
-    const productBlocks = await Promise.all(
-      productsData.map(async (product) => {
-        const productData = await getProductDataByContentPath(product.contentPath);
+    // const productBlocks = await Promise.all(
+    //   productsData.map(async (product) => {
+    //     const productData = await getProductDataByContentPath(product.contentPath);
 
-        const combinedData = {
-          ...product,
-          ...productData,
-        };
+    //     const combinedData = {
+    //       ...product,
+    //       ...productData,
+    //     };
 
-        return createProductBlock(combinedData);
-      }),
-    );
+    //     return createProductBlock(combinedData);
+    //   }),
+    // );
 
-    productBlocks.forEach((productBlock) => {
-      block.appendChild(productBlock);
-    });
+    // productBlocks.forEach((productBlock) => {
+    //   block.appendChild(productBlock);
+    // });
   }
 }
