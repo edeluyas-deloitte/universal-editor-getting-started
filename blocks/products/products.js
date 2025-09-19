@@ -86,7 +86,7 @@ function createProductBlock(product) {
 }
 
 export default async function decorate(block) {
-  // if (!areContentPathEmpty(block)) {
+  if (!areContentPathEmpty(block)) {
     const productBlockDiv = document.querySelectorAll(':scope .products.block > div');
     const productsData = getProductFields(productBlockDiv);
     block.innerHTML = '';
@@ -107,5 +107,5 @@ export default async function decorate(block) {
       block.appendChild(productBlock);
     });
     console.log('block', block);
-  // }
+  }
 }
