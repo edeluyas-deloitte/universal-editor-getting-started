@@ -35,10 +35,14 @@
               "valueType": "string"
             },
             {
-              "component": "reference",
-              "label": "Dropdown Url",
+              "component": "aem-content",
               "name": "dropdownUrl",
-              "valueType": "string"
+              "value": "",
+              "label": "Dropdown Url",
+              "valueType": "string",
+              "validation": {
+                "rootPath": "/content"
+              }
             }
           ]
         }
