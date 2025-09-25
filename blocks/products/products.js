@@ -13,7 +13,7 @@ function getProductField(productBlock) {
     contentPath,
     buttonText,
     buttonUrl,
-    isOpenInANewTab
+    isOpenInANewTab,
   };
 }
 
@@ -78,7 +78,6 @@ function createProductCard(product, contentPath) {
 }
 
 export default async function decorate(block) {
-  console.log(block);
   const productsContainerDiv = document.createElement('div');
   productsContainerDiv.classList.add('products-container');
 
