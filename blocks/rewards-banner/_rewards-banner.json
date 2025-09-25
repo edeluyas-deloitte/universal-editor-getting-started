@@ -22,26 +22,23 @@
       "fields": [
         {
           "component": "container",
-          "label": "Dropdown Properties",
-          "name": "dropdownProperties",
-          "collapsible": true,
+          "name": "test",
+          "label": "Multi Text",
           "multi": true,
           "fields": [
             {
-              "component": "text",
-              "label": "Dropdown Label",
-              "name": "dropdownLabel",
+              "component": "reference",
+              "name": "image",
+              "value": "",
+              "label": "Sample Image",
               "valueType": "string"
             },
             {
-              "component": "aem-content",
-              "name": "dropdownUrl",
+              "component": "text",
+              "name": "alt",
               "value": "",
-              "label": "Dropdown Url",
-              "valueType": "string",
-              "validation": {
-                "rootPath": "/content"
-              }
+              "label": "Alt Text",
+              "valueType": "string"
             }
           ]
         }
