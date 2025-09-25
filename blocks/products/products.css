@@ -1,4 +1,4 @@
-.products.block {
+.products-container {
   display: flex;
   flex-wrap: wrap;
   gap: 32px;
@@ -103,7 +103,7 @@
 }
 
 @media (width <= 800px) {
-  .products.block {
+  .products-container {
     flex-direction: column;
     gap: 24px;
     padding: 16px 0;
