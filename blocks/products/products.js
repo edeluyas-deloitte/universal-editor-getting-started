@@ -40,7 +40,6 @@ function createProductBlock(product, child) {
   card.classList.add('product', 'block', 'product-card');
   
   moveInstrumentation(child, card);
-  child.remove();
   
   const picture = document.createElement('picture');
 
