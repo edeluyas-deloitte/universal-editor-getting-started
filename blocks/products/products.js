@@ -77,7 +77,7 @@ export default async function decorate(block) {
   const productsContainerDiv = document.createElement('div');
   productsContainerDiv.classList.add('products-container');
 
-  [...block.children].forEach(async (productBlock) => {
+  for (const productBlock of [...block.children]) {
     const productContainerDiv = document.createElement('div');
     productContainerDiv.classList.add('product-container');
     moveInstrumentation(productBlock, productContainerDiv);
@@ -91,7 +91,7 @@ export default async function decorate(block) {
 
     productContainerDiv.append(createProductCard(combinedData));
     productsContainerDiv.append(productContainerDiv);
-  });
+  }
 
   block.textContent = '';
   block.append(productsContainerDiv);
