@@ -94,7 +94,7 @@ export default async function decorate(block) {
     }),
   );
 
-  block.textContent = '';
+  // block.textContent = '';
   productBlocks.forEach((productBlock) => {
     if (productBlock) block.appendChild(productBlock);
   });
