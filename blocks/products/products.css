@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   gap: 32px;
   justify-content: center;
+  align-items: stretch; /* Ensures all cards are equal height */
   padding: 32px 0;
 }
 
@@ -12,6 +13,7 @@
   box-shadow: 0 2px 16px #00000014;
   max-width: 370px;
   width: 100%;
+  height: 100%; /* Stretch to match tallest card */
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -34,10 +36,11 @@
 }
 
 .product-content {
+  flex: 1 1 auto;
   padding: 24px 24px 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 24px;
 }
 
 .product-content h3 {
@@ -71,7 +74,7 @@
 
 .product-link {
   text-align: center;
-  margin-top: 18px;
+  margin-top: auto; /* Pushes button to bottom */
   display: inline-block;
   padding: 6px 16px;
   border: 1px solid #da1710;
@@ -107,11 +110,13 @@
     flex-direction: column;
     gap: 24px;
     padding: 16px 0;
+    align-items: center; /* Center cards vertically in column mode */
   }
 
   .product-card {
     max-width: 370px;
     width: 100%;
     margin: 0 auto;
+    height: auto; /* Let cards grow naturally on mobile */
   }
 }
