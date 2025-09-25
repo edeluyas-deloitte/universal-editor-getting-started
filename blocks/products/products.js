@@ -74,7 +74,6 @@ function createProductCard(product) {
 }
 
 export default async function decorate(block) {
-
   const productsContainerDiv = document.createElement('div');
   productsContainerDiv.classList.add('products-container');
 
@@ -82,14 +81,13 @@ export default async function decorate(block) {
     const productContainerDiv = document.createElement('div');
     productContainerDiv.classList.add('product-container');
     moveInstrumentation(productBlock, productContainerDiv);
-    
     const productData = getProductField(productBlock);
     const productCfData = await getProductDataByContentPath(productData.contentPath);
 
     const combinedData = {
       ...productData,
-      ...productCfData
-    }
+      ...productCfData,
+    };
 
     productContainerDiv.append(createProductCard(combinedData));
     productsContainerDiv.append(productContainerDiv);
