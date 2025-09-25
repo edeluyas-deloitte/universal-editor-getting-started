@@ -78,10 +78,12 @@ export default async function decorate(block) {
   const productsContainerDiv = document.createElement('div');
   productsContainerDiv.classList.add('products-container');
 
-  for (const productBlock of [...block.children]) {
+  const productBlocks = [...block.children];
+  const productPromises = productBlocks.map(async (productBlock) => {
     const productContainerDiv = document.createElement('div');
     productContainerDiv.classList.add('product-container');
     moveInstrumentation(productBlock, productContainerDiv);
+
     const productData = getProductField(productBlock);
     const productCfData = await getProductDataByContentPath(productData.contentPath);
 
@@ -91,9 +93,14 @@ export default async function decorate(block) {
     };
 
     productContainerDiv.append(createProductCard(combinedData, productData.contentPath));
-    productsContainerDiv.append(productContainerDiv);
-  }
+
+    return productContainerDiv;
+  });
+
+  const productDivs = await Promise.all(productPromises);
+  productDivs.forEach(div => productsContainerDiv.append(div));
 
   block.textContent = '';
   block.append(productsContainerDiv);
 }
+
