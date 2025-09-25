@@ -83,12 +83,13 @@ export default async function decorate(block) {
     productContainerDiv.classList.add('product-container');
     moveInstrumentation(productBlock, productContainerDiv);
     const productData = getProductField(productBlock);
-    const productCfData = getProductDataByContentPath(productData.contentPath);
+    const productCfData = await getProductDataByContentPath(productData.contentPath);
 
     const combinedData = {
       ...productData,
       ...productCfData,
     };
+
     productContainerDiv.append(createProductCard(combinedData, productData.contentPath));
     productsContainerDiv.append(productContainerDiv);
   }
