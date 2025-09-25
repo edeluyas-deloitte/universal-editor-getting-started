@@ -1,4 +1,5 @@
 import { getMetadata } from '../../scripts/aem.js';
+import { moveInstrumentation } from '../../scripts/scripts.js';
 
 export const graphqlUrl = '/graphql/execute.json/ez-eds/get-product-by-path;path=';
 
@@ -94,8 +95,11 @@ export default async function decorate(block) {
     }),
   );
 
-  // block.textContent = '';
-  productBlocks.forEach((productBlock) => {
+  productBlocks.forEach((productBlock, index) => {
+    console.log('block index:', block.children[index]);
+    console.log('product block:', productBlock);
+    moveInstrumentation(block.children[index], productBlock);
     if (productBlock) block.appendChild(productBlock);
   });
+  
 }
