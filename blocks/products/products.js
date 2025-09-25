@@ -93,7 +93,7 @@ export default async function decorate(block) {
       ...productCfData,
     };
 
-    const inEditorMode = productContainerDiv.getAttribute('data-aeu-resource') ? true : false;
+    const inEditorMode = productContainerDiv.getAttribute('data-aue-resource') ? true : false;
     console.log('productContainerDiv', productContainerDiv);
     console.log('inEditorMode:', inEditorMode);
 
