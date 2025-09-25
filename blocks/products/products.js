@@ -34,9 +34,10 @@ async function getProductDataByContentPath(contentPath) {
   }
 }
 
-function createProductBlock(product) {
+function createProductBlock(product, child) {
   const authorUrl = getMetadata('keywords');
   const card = document.createElement('div');
+  moveInstrumentation(child, card);
   card.classList.add('product', 'block', 'product-card');
 
   const picture = document.createElement('picture');
@@ -82,7 +83,7 @@ export default async function decorate(block) {
   const productBlockDiv = [...block.children];
   const productsData = getProductFields(productBlockDiv);
   const productBlocks = await Promise.all(
-    productsData.map(async (product) => {
+    productsData.map(async (product, index) => {
       if (product.contentPath) {
         const productData = await getProductDataByContentPath(product.contentPath);
       
@@ -90,13 +91,13 @@ export default async function decorate(block) {
           ...product,
           ...productData,
         };
-        return createProductBlock(combinedData);
+        return createProductBlock(combinedData, block.children[index]);
       }
     }),
   );
 
+  block.textContent = '';
   productBlocks.forEach((productBlock) => {
     if (productBlock) block.appendChild(productBlock);
   });
-  
 }
