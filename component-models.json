@@ -321,7 +321,6 @@
         "component": "container",
         "label": "Dropdown Properties",
         "name": "dropdownProperties",
-        "valueType": "string",
         "collapsible": true,
         "multi": true,
         "fields": [
