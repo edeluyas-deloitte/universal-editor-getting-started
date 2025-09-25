@@ -32,10 +32,14 @@ async function getProductDataByContentPath(contentPath) {
   }
 }
 
-function createProductCard(product) {
+function createProductCard(product, contentPath, inEditorMode) {
   const authorUrl = getMetadata('keywords');
   const card = document.createElement('div');
-  card.classList.add('product', 'block', 'product-card');
+  if (contentPath) card.classList.add('product', 'block', 'product-card');
+  else {
+    inEditorMode ? card.classList.add('product', 'block', 'product-card', 'product-card-edit-mode') : card.classList.add('product', 'block', 'product-card', 'product-card-hide');
+  }
+  
   const picture = document.createElement('picture');
   const sourceWebp = document.createElement('source');
   sourceWebp.type = 'image/png';
@@ -89,7 +93,10 @@ export default async function decorate(block) {
       ...productCfData,
     };
 
-    productContainerDiv.append(createProductCard(combinedData));
+    const inEditorMode = productContainerDiv.getAttribute('data-resource') ? true : false;
+    console.log('inEditorMode:', inEditorMode);
+
+    productContainerDiv.append(createProductCard(combinedData, productData.contentPath, inEditorMode));
     productsContainerDiv.append(productContainerDiv);
   }
 

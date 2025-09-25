@@ -7,6 +7,10 @@
   padding: 32px 0;
 }
 
+main > .section.products-container > div {
+  margin: 0 !important;
+}
+
 .product-card {
   background: #fff;
   border-radius: 16px;
