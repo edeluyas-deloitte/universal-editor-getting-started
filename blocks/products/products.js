@@ -94,6 +94,7 @@ export default async function decorate(block) {
     };
 
     const inEditorMode = productContainerDiv.getAttribute('data-resource') ? true : false;
+    console.log('productContainerDiv', productContainerDiv);
     console.log('inEditorMode:', inEditorMode);
 
     productContainerDiv.append(createProductCard(combinedData, productData.contentPath, inEditorMode));
