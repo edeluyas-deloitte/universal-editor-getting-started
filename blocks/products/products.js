@@ -7,11 +7,13 @@ function getProductField(productBlock) {
   const contentPath = productBlock.querySelector(':scope .button-container a')?.getAttribute('href') || '';
   const buttonText = productBlock.querySelector(':scope div:nth-child(2) p')?.textContent.trim() || 'Find out more';
   const buttonUrl = productBlock.querySelector(':scope div:nth-child(3) a')?.href || '#';
+  const isOpenInANewTab = productBlock.querySelector(':scope div:nth-child(4) p')?.textContent || false;
 
   return {
     contentPath,
     buttonText,
     buttonUrl,
+    isOpenInANewTab
   };
 }
 
@@ -65,6 +67,7 @@ function createProductCard(product, contentPath) {
 
     const link = document.createElement('a');
     link.href = product.buttonUrl;
+    link.target = product.isOpenInANewTab ? '_blank' : '_self';
     link.textContent = product.buttonText;
     link.classList.add('product-link');
     content.appendChild(link);
@@ -75,6 +78,7 @@ function createProductCard(product, contentPath) {
 }
 
 export default async function decorate(block) {
+  console.log(block);
   const productsContainerDiv = document.createElement('div');
   productsContainerDiv.classList.add('products-container');
 
