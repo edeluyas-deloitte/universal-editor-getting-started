@@ -40,7 +40,7 @@ function createProductBlock(product, child) {
   card.classList.add('product', 'block', 'product-card');
   
   moveInstrumentation(child, card);
-  
+
   const picture = document.createElement('picture');
 
   const sourceWebp = document.createElement('source');
@@ -97,7 +97,6 @@ export default async function decorate(block) {
     }),
   );
 
-  productBlocks.forEach((productBlock) => {
-    if (productBlock) block.appendChild(productBlock);
-  });
+  block.textContent = '';
+  block.append(...productBlocks);
 }
