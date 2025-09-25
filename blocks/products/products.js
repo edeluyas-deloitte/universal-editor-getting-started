@@ -35,45 +35,42 @@ async function getProductDataByContentPath(contentPath) {
 function createProductCard(product, contentPath, inEditorMode) {
   const authorUrl = getMetadata('keywords');
   const card = document.createElement('div');
-  if (contentPath) card.classList.add('product', 'block', 'product-card');
-  else {
-    inEditorMode ? card.classList.add('product', 'block', 'product-card', 'product-card-edit-mode') : card.classList.add('product', 'block', 'product-card', 'product-card-hide');
+  if (contentPath) {
+    card.classList.add('product', 'block', 'product-card');
+    const picture = document.createElement('picture');
+    const sourceWebp = document.createElement('source');
+    sourceWebp.type = 'image/png';
+    sourceWebp.srcset = `${authorUrl}${product.productImage?.path.replace(/\.\w+$/, '.png') || ''}`;
+    picture.appendChild(sourceWebp);
+
+    const img = document.createElement('img');
+    img.src = `${authorUrl}${product.productImage?.path || ''}`;
+    img.alt = product.productName || 'Product image';
+    img.classList.add('product-image');
+    picture.appendChild(img);
+
+    card.appendChild(picture);
+
+    const content = document.createElement('div');
+    content.classList.add('product-content');
+
+    const title = document.createElement('h3');
+    title.textContent = product.productName || '';
+    content.appendChild(title);
+
+    const desc = document.createElement('div');
+    desc.classList.add('product-description');
+    desc.innerHTML = product.productDescription?.html || '';
+    content.appendChild(desc);
+
+    const link = document.createElement('a');
+    link.href = product.buttonUrl;
+    link.textContent = product.buttonText;
+    link.classList.add('product-link');
+    content.appendChild(link);
+
+    card.appendChild(content);
   }
-  
-  const picture = document.createElement('picture');
-  const sourceWebp = document.createElement('source');
-  sourceWebp.type = 'image/png';
-  sourceWebp.srcset = `${authorUrl}${product.productImage?.path.replace(/\.\w+$/, '.png') || ''}`;
-  picture.appendChild(sourceWebp);
-
-  const img = document.createElement('img');
-  img.src = `${authorUrl}${product.productImage?.path || ''}`;
-  img.alt = product.productName || 'Product image';
-  img.classList.add('product-image');
-  picture.appendChild(img);
-
-  card.appendChild(picture);
-
-  const content = document.createElement('div');
-  content.classList.add('product-content');
-
-  const title = document.createElement('h3');
-  title.textContent = product.productName || '';
-  content.appendChild(title);
-
-  const desc = document.createElement('div');
-  desc.classList.add('product-description');
-  desc.innerHTML = product.productDescription?.html || '';
-  content.appendChild(desc);
-
-  const link = document.createElement('a');
-  link.href = product.buttonUrl;
-  link.textContent = product.buttonText;
-  link.classList.add('product-link');
-  content.appendChild(link);
-
-  card.appendChild(content);
-
   return card;
 }
 
