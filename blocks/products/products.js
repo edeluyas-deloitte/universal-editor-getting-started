@@ -37,9 +37,11 @@ async function getProductDataByContentPath(contentPath) {
 function createProductBlock(product, child) {
   const authorUrl = getMetadata('keywords');
   const card = document.createElement('div');
-  moveInstrumentation(child, card);
   card.classList.add('product', 'block', 'product-card');
-
+  
+  moveInstrumentation(child, card);
+  child.remove();
+  
   const picture = document.createElement('picture');
 
   const sourceWebp = document.createElement('source');
