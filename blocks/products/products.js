@@ -98,9 +98,8 @@ export default async function decorate(block) {
   });
 
   const productDivs = await Promise.all(productPromises);
-  productDivs.forEach(div => productsContainerDiv.append(div));
+  productDivs.forEach((div) => productsContainerDiv.append(div));
 
   block.textContent = '';
   block.append(productsContainerDiv);
 }
-
