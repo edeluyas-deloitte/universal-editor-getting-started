@@ -95,10 +95,7 @@ export default async function decorate(block) {
     }),
   );
 
-  productBlocks.forEach((productBlock, index) => {
-    console.log('block index:', block.children[index]);
-    console.log('product block:', productBlock);
-    moveInstrumentation(block.children[index], productBlock);
+  productBlocks.forEach((productBlock) => {
     if (productBlock) block.appendChild(productBlock);
   });
   
