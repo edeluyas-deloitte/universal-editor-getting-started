@@ -313,5 +313,32 @@
         "valueType": "boolean"
       }
     ]
+  },
+  {
+    "id": "rewards-banner",
+    "fields": [
+      {
+        "component": "container",
+        "label": "Dropdown Properties",
+        "name": "dropdownProperties",
+        "valueType": "string",
+        "collapsible": true,
+        "multi": true,
+        "fields": [
+          {
+            "component": "text",
+            "label": "Dropdown Label",
+            "name": "dropdownLabel",
+            "valueType": "string"
+          },
+          {
+            "component": "reference",
+            "label": "Dropdown Url",
+            "name": "dropdownUrl",
+            "valueType": "string"
+          }
+        ]
+      }
+    ]
   }
 ]

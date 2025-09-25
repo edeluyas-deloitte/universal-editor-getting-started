@@ -1,0 +1,49 @@
+{
+  "definitions": [
+    {
+      "title": "Rewards Banner",
+      "id": "rewards-banner",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Rewards Banner",
+              "model": "rewards-banner"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "rewards-banner",
+      "fields": [
+        {
+          "component": "container",
+          "label": "Dropdown Properties",
+          "name": "dropdownProperties",
+          "valueType": "string",
+          "collapsible": true,
+          "multi": true,
+          "fields": [
+            {
+              "component": "text",
+              "label": "Dropdown Label",
+              "name": "dropdownLabel",
+              "valueType": "string"
+            },
+            {
+              "component": "reference",
+              "label": "Dropdown Url",
+              "name": "dropdownUrl",
+              "valueType": "string"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "filters": []
+}
