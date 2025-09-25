@@ -80,24 +80,24 @@ export default async function decorate(block) {
   
   const productBlockDiv = [...block.children];
   const productsData = getProductFields(productBlockDiv);
-  block.innerHTML = '';
-  const productBlocks = await Promise.all(
-    productsData.map(async (product) => {
-      if (product.contentPath) {
-        const productData = await getProductDataByContentPath(product.contentPath);
+  // block.innerHTML = '';
+  // const productBlocks = await Promise.all(
+  //   productsData.map(async (product) => {
+  //     if (product.contentPath) {
+  //       const productData = await getProductDataByContentPath(product.contentPath);
       
-        const combinedData = {
-          ...product,
-          ...productData,
-        };
-        return createProductBlock(combinedData);
-      }
-    }),
-  );
+  //       const combinedData = {
+  //         ...product,
+  //         ...productData,
+  //       };
+  //       return createProductBlock(combinedData);
+  //     }
+  //   }),
+  // );
 
-  productBlocks.forEach((productBlock) => {
-    if (productBlock) block.appendChild(productBlock);
-  });
+  // productBlocks.forEach((productBlock) => {
+  //   if (productBlock) block.appendChild(productBlock);
+  // });
   
   console.log('block', block);
   
