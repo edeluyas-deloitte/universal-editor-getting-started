@@ -32,13 +32,11 @@ async function getProductDataByContentPath(contentPath) {
   }
 }
 
-function createProductCard(product, child) {
+function createProductCard(product) {
   const authorUrl = getMetadata('keywords');
   const card = document.createElement('div');
   card.classList.add('product', 'block', 'product-card');
-  
   const picture = document.createElement('picture');
-
   const sourceWebp = document.createElement('source');
   sourceWebp.type = 'image/png';
   sourceWebp.srcset = `${authorUrl}${product.productImage?.path.replace(/\.\w+$/, '.png') || ''}`;
