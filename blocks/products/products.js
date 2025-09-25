@@ -32,7 +32,7 @@ async function getProductDataByContentPath(contentPath) {
   }
 }
 
-function createProductCard(product, contentPath, inEditorMode) {
+function createProductCard(product, contentPath) {
   const authorUrl = getMetadata('keywords');
   const card = document.createElement('div');
   if (contentPath) {
@@ -83,13 +83,12 @@ export default async function decorate(block) {
     productContainerDiv.classList.add('product-container');
     moveInstrumentation(productBlock, productContainerDiv);
     const productData = getProductField(productBlock);
-    const productCfData = await getProductDataByContentPath(productData.contentPath);
+    const productCfData = getProductDataByContentPath(productData.contentPath);
 
     const combinedData = {
       ...productData,
       ...productCfData,
     };
-    
     productContainerDiv.append(createProductCard(combinedData, productData.contentPath));
     productsContainerDiv.append(productContainerDiv);
   }
