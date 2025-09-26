@@ -15,7 +15,7 @@ main > .section.products-container > div {
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 2px 16px #00000014;
-  max-width: 370px;
+  max-width: 400px;
   width: 100%;
   height: 100%; /* Stretch to match tallest card */
   display: flex;
@@ -67,13 +67,21 @@ main > .section.products-container > div {
 .product-description ul {
   padding-left: 20px;
   margin: 12px 0 0;
+  list-style: disc inside;
 }
 
 .product-description li {
-  margin-bottom: 6px;
+  margin-bottom: 12px;
   font-size: 16px;
   color: #222;
-  list-style: disc inside;
+  list-style-type: disc;
+  position: relative;
+  padding-left: 8px; /* space between bullet and text */
+}
+
+.product-description li::marker {
+  font-size: 24px;
+  color: #1f1c4f;
 }
 
 .product-link {
@@ -118,7 +126,7 @@ main > .section.products-container > div {
   }
 
   .product-card {
-    max-width: 370px;
+    max-width: 400px;
     width: 100%;
     margin: 0 auto;
     height: auto; /* Let cards grow naturally on mobile */

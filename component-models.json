@@ -303,7 +303,7 @@
         "label": "Button Url",
         "valueType": "string",
         "validation": {
-          "rootPath": "/content"
+          "rootPath": "/content/content/universal-editor-getting-started-site"
         }
       },
       {
