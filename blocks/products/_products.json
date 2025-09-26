@@ -59,7 +59,7 @@
           "label": "Button Url",
           "valueType": "string",
           "validation": {
-            "rootPath": "/content"
+            "rootPath": "/content/universal-editor-getting-started-site"
           }
         },
         {
